@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
+import com.multibank.tracker.presentation.navigation.NavGraph
 import com.multibank.tracker.ui.theme.PriceTrackerTheme
-import com.multibank.tracker.presentation.navigation.NavigationWrapper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PriceTrackerTheme {
                 val navController = rememberNavController()
-                NavigationWrapper(navController = navController)
+                NavGraph(navController = navController)
             }
         }
     }

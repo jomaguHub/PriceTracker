@@ -26,7 +26,7 @@ import kotlin.random.Random
 
 private const val TAG = "WebSocketDataSource"
 private const val WS_URL = "wss://ws.postman-echo.com/raw"
-private const val INTERVAL = 2000L
+private const val INTERVAL = 2_000L
 
 @Singleton
 class WebSocketDataSource @Inject constructor(
@@ -42,7 +42,7 @@ class WebSocketDataSource @Inject constructor(
     private var scope: CoroutineScope? = null
 
     private val basePrices: MutableMap<String, Double> =
-        ALL_SYMBOLS.associate { it.symbol to Random.nextDouble(50.0, 3500.0) }.toMutableMap()
+        ALL_SYMBOLS.associate { it.symbol to Random.nextDouble(50.0, 3_500.0) }.toMutableMap()
 
     fun connect() {
         if (_isConnected.value) return
