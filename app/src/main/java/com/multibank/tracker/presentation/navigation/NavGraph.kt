@@ -20,7 +20,7 @@ private const val DEEP_LINK_URI_PATTERN = "stocks://symbol/{symbol}"
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(
-        navController    = navController,
+        navController = navController,
         startDestination = ROUTE_FEED,
     ) {
 
@@ -33,7 +33,7 @@ fun NavGraph(navController: NavHostController) {
         }
 
         composable(
-            route     = ROUTE_DETAIL,
+            route = ROUTE_DETAIL,
             arguments = listOf(
                 navArgument(NAV_ARG_SYMBOL) { type = NavType.StringType }
             ),
@@ -41,7 +41,6 @@ fun NavGraph(navController: NavHostController) {
                 navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN }
             ),
         ) {
-
             DetailScreen(
                 onBack = { navController.popBackStack() }
             )

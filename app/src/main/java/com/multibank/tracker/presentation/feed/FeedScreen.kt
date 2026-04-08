@@ -39,7 +39,7 @@ import com.multibank.tracker.domain.model.PriceChange
 import com.multibank.tracker.domain.model.StockSymbol
 
 private val GreenColor = Color(0xFF4CAF50)
-private val RedColor   = Color(0xFFF44336)
+private val RedColor = Color(0xFFF44336)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,14 +98,14 @@ fun FeedScreen(
 @Composable
 private fun StockRow(stock: StockSymbol, onClick: () -> Unit) {
     val flashTarget = when {
-        stock.isFlashing && stock.change == PriceChange.UP   -> GreenColor.copy(alpha = 0.15f)
+        stock.isFlashing && stock.change == PriceChange.UP -> GreenColor.copy(alpha = 0.15f)
         stock.isFlashing && stock.change == PriceChange.DOWN -> RedColor.copy(alpha = 0.15f)
         else -> MaterialTheme.colorScheme.surface
     }
     val animatedBg by animateColorAsState(
-        targetValue    = flashTarget,
-        animationSpec  = tween(400),
-        label          = "row_flash",
+        targetValue = flashTarget,
+        animationSpec = tween(400),
+        label = "row_flash",
     )
 
     Row(
@@ -116,17 +116,17 @@ private fun StockRow(stock: StockSymbol, onClick: () -> Unit) {
             .clickable(onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 14.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment     = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text  = stock.symbol,
+            text = stock.symbol,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text       = stock.price?.let { "$%.2f".format(it) } ?: "—",
-                style      = MaterialTheme.typography.bodyLarge,
+                text = stock.price?.let { "$%.2f".format(it) } ?: "—",
+                style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.SemiBold,
             )
             Spacer(modifier = Modifier.width(8.dp))
@@ -139,7 +139,7 @@ private fun StockRow(stock: StockSymbol, onClick: () -> Unit) {
 @Composable
 fun PriceArrow(change: PriceChange) {
     val (arrow, color) = when (change) {
-        PriceChange.UP   -> "↑" to GreenColor
+        PriceChange.UP -> "↑" to GreenColor
         PriceChange.DOWN -> "↓" to RedColor
         PriceChange.NONE -> "—" to Color.Gray
     }

@@ -92,7 +92,7 @@ class WebSocketDataSource @Inject constructor(
         scope?.launch {
             while (isActive) {
                 ALL_SYMBOLS.forEach { stock ->
-                    val prev     = basePrices[stock.symbol] ?: Random.nextDouble(50.0, 3500.0)
+                    val prev = basePrices[stock.symbol] ?: Random.nextDouble(50.0, 3500.0)
                     val newPrice = (prev + prev * Random.nextDouble(-0.02, 0.02)).coerceAtLeast(1.0)
                     basePrices[stock.symbol] = newPrice
 

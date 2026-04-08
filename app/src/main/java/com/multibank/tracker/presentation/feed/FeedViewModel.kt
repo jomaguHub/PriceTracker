@@ -35,14 +35,14 @@ class FeedViewModel @Inject constructor(
         _isFeedRunning
     ) { stocks, connected, running ->
         FeedUiState(
-            stocks        = stocks,
-            isConnected   = connected,
+            stocks = stocks,
+            isConnected = connected,
             isFeedRunning = running,
         )
     }.stateIn(
-        scope         = viewModelScope,
-        started       = SharingStarted.WhileSubscribed(5_000),
-        initialValue  = FeedUiState(),
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = FeedUiState(),
     )
 
     init {

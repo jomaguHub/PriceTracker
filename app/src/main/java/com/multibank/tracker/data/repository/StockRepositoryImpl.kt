@@ -28,7 +28,7 @@ class StockRepositoryImpl @Inject constructor(
     private val repositoryScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     private val initialStocks = ALL_SYMBOLS
-    private val _stocksState  = MutableStateFlow(initialStocks)
+    private val _stocksState = MutableStateFlow(initialStocks)
     override val stocksState: StateFlow<List<StockSymbol>> = _stocksState.asStateFlow()
 
     private val _priceUpdates = MutableSharedFlow<String>(extraBufferCapacity = 128)
@@ -44,8 +44,8 @@ class StockRepositoryImpl @Inject constructor(
     }
 
 
-    override fun start()  = dataSource.connect()
-    override fun stop()   = dataSource.disconnect()
+    override fun start() = dataSource.connect()
+    override fun stop() = dataSource.disconnect()
 
     override fun resetFlash(symbol: String) {
         _stocksState.value = _stocksState.value.map { stock ->
@@ -56,8 +56,8 @@ class StockRepositoryImpl @Inject constructor(
 
     private fun handleEcho(raw: String) {
         try {
-            val json     = JSONObject(raw)
-            val symbol   = json.getString("symbol")
+            val json = JSONObject(raw)
+            val symbol = json.getString("symbol")
             val newPrice = json.getDouble("price")
 
             _priceUpdates.tryEmit(symbol)
@@ -65,14 +65,14 @@ class StockRepositoryImpl @Inject constructor(
             val updated = _stocksState.value.map { stock ->
                 if (stock.symbol != symbol) return@map stock
                 val change = when {
-                    stock.price == null    -> PriceChange.NONE
+                    stock.price == null -> PriceChange.NONE
                     newPrice > stock.price -> PriceChange.UP
                     newPrice < stock.price -> PriceChange.DOWN
-                    else                   -> PriceChange.NONE
+                    else -> PriceChange.NONE
                 }
                 stock.copy(
-                    price      = newPrice,
-                    change     = change,
+                    price = newPrice,
+                    change = change,
                     isFlashing = change != PriceChange.NONE,
                 )
             }.sortedByDescending { it.price }
